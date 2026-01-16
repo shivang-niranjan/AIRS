@@ -192,3 +192,85 @@
         justify-content: center;
     }
 }
+
+/* Intelligence Tooltip */
+.map-intelligence-tooltip {
+    position: fixed;
+    z-index: 1000;
+    width: 280px;
+    background: rgba(10, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 12px;
+    padding: 1.25rem;
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 255, 0.1);
+    animation: tooltipFade 0.2s ease-out;
+    transform: translate(-5%, -5%);
+}
+
+@keyframes tooltipFade {
+    from {
+        opacity: 0;
+        transform: translate(-5%, 0%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-5%, -5%);
+    }
+}
+
+.tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+.tooltip-header h3 {
+    font-size: 1.1rem;
+    color: var(--neon-cyan);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.risk-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.tooltip-body section {
+    margin-bottom: 0.75rem;
+}
+
+.tooltip-body h4 {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.tooltip-body p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.tooltip-body ul {
+    margin: 0.25rem 0 0 1.2rem;
+    padding: 0;
+}
+
+.tooltip-body li {
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    margin-bottom: 0.25rem;
+}

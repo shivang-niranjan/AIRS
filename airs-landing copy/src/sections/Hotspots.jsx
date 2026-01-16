@@ -7,10 +7,15 @@ import './Hotspots.css';
 const Hotspots = () => {
     const [activeDistrict, setActiveDistrict] = useState(null);
     const [viewMode, setViewMode] = useState('risk'); // risk, stress, weather
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e) => {
+        setMousePos({ x: e.clientX, y: e.clientY });
+    };
 
     // Color Scales
     const getModeColor = (d) => {
-        if (!d) return '#333';
+        if (!d) return '#00ff88'; // Default to Green (Safe/No Decision)
         if (viewMode === 'stress') {
             if (d.load >= 80) return '#ff0000'; // Critical
             if (d.load >= 60) return '#ff6600'; // High
@@ -34,7 +39,7 @@ const Hotspots = () => {
             };
             return map[d.weather] || '#aaaaaa';
         }
-        return 'var(--neon-cyan)';
+        return '#00ff88'; // Default to Green (Safe/No Decision)
     };
 
     return (
@@ -111,9 +116,9 @@ const Hotspots = () => {
                     </div>
                 </div>
 
-                <div className="map-side">
+                <div className="map-side" onMouseMove={handleMouseMove}>
                     <div className="map-container">
-                        <svg viewBox="0 0 1000 1100" className="india-map-svg">
+                        <svg viewBox="0 0 612 696" className="india-map-svg">
                             <defs>
                                 <filter id="glow">
                                     <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
@@ -129,20 +134,54 @@ const Hotspots = () => {
                                     key={state.id}
                                     d={state.path}
                                     fill={getModeColor(state)}
-                                    fillOpacity={activeDistrict?.id === state.id ? 1 : 0.6}
-                                    stroke="rgba(255, 255, 255, 0.2)"
-                                    strokeWidth="1"
+                                    fillOpacity={activeDistrict?.id === state.id ? 1 : 0.7}
+                                    stroke="rgba(255, 255, 255, 0.6)"
+                                    strokeWidth="1.5"
                                     className="state-path"
                                     onMouseEnter={() => setActiveDistrict(state)}
                                     onMouseLeave={() => setActiveDistrict(null)}
                                     style={{
                                         cursor: 'pointer',
-                                        transition: 'fill 0.3s ease, fill-opacity 0.3s ease'
+                                        transition: 'all 0.3s ease'
                                     }}
                                 />
                             ))}
                         </svg>
                     </div>
+
+                    {activeDistrict && (
+                        <div
+                            className="map-intelligence-tooltip"
+                            style={{
+                                left: mousePos.x + 20,
+                                top: mousePos.y + 20,
+                                borderColor: getModeColor(activeDistrict)
+                            }}
+                        >
+                            <div className="tooltip-header">
+                                <h3>{activeDistrict.name}</h3>
+                                <div className="risk-badge" style={{ backgroundColor: getModeColor(activeDistrict) }}>
+                                    Risk: {activeDistrict.risk}
+                                </div>
+                            </div>
+                            <div className="tooltip-body">
+                                <section>
+                                    <h4>Primary Limitation:</h4>
+                                    <p>{activeDistrict.problem || "Information pending for this region."}</p>
+                                </section>
+                                {activeDistrict.solutions && (
+                                    <section>
+                                        <h4>AI Solution Protocol:</h4>
+                                        <ul>
+                                            {activeDistrict.solutions.map((s, i) => (
+                                                <li key={i}>{s}</li>
+                                            ))}
+                                        </ul>
+                                    </section>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </section>

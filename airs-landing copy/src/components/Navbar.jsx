@@ -24,11 +24,11 @@ const Navbar = () => {
                 </div>
 
                 <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-                    <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
-                    <a href="#problem" onClick={() => setMobileMenuOpen(false)}>Problem</a>
+
                     <a href="#dashboard" onClick={() => setMobileMenuOpen(false)}>Dashboard</a>
                     <a href="#matrix" onClick={() => setMobileMenuOpen(false)}>Intelligence</a>
                     <a href="#map" onClick={() => setMobileMenuOpen(false)}>Hotspots</a>
+                    <a href="#risk-analytics" onClick={() => setMobileMenuOpen(false)}>Census</a>
                 </div>
 
                 <div className="nav-action">
