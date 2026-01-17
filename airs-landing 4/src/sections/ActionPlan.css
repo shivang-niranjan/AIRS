@@ -1,0 +1,176 @@
+.action-section {
+    padding: 100px 48px;
+    background: linear-gradient(180deg, #0d1526 0%, var(--midnight) 100%);
+}
+
+.protocol-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.protocol-headers {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr 50px 1fr;
+    /* Matches row structure */
+    margin-bottom: 40px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+/* Hide spacer columns in header */
+.protocol-headers span:nth-child(2),
+.protocol-headers span:nth-child(3) {
+    /* Actually we only have 3 text spans in JSX, so we need to position them correctly in grid */
+    /* span 1 -> col 1, span 2 -> col 3, span 3 -> col 5 */
+}
+
+.protocol-headers span:nth-child(1) {
+    grid-column: 1;
+}
+
+.protocol-headers span:nth-child(2) {
+    grid-column: 3;
+}
+
+.protocol-headers span:nth-child(3) {
+    grid-column: 5;
+}
+
+
+.protocol-row {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr 50px 1fr;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.protocol-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s ease;
+    min-height: 140px;
+    justify-content: center;
+}
+
+.protocol-node:hover {
+    transform: translateY(-5px);
+}
+
+/* Trigger Node style */
+.protocol-node.trigger {
+    background: rgba(255, 77, 77, 0.05);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+}
+
+.protocol-node.trigger .node-icon {
+    color: #ff4d4d;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.4));
+}
+
+/* Logic Node style */
+.protocol-node.logic {
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.protocol-node.logic .logic-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-family: var(--font-mono);
+}
+
+.branch-icon {
+    color: #fff;
+    opacity: 0.5;
+}
+
+/* Action Node style */
+.protocol-node.action {
+    background: rgba(0, 243, 255, 0.05);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+}
+
+.protocol-node.action .node-icon {
+    color: var(--neon-cyan);
+    filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.4));
+}
+
+.node-icon {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+}
+
+.node-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    color: #e0e0e0;
+}
+
+/* Connection Lines */
+.connection-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.connection-line .arrow-icon {
+    animation: flow 1.5s infinite;
+}
+
+@keyframes flow {
+    0% {
+        transform: translateX(-5px);
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(5px);
+        opacity: 0.2;
+    }
+}
+
+@media (max-width: 900px) {
+    .protocol-headers {
+        display: none;
+    }
+
+    .protocol-row {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto;
+        gap: 16px;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .connection-line {
+        transform: rotate(90deg);
+        /* Point down */
+        height: 40px;
+    }
+
+    .protocol-node {
+        min-height: auto;
+        padding: 16px;
+    }
+}
